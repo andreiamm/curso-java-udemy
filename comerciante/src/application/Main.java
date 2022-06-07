@@ -1,0 +1,65 @@
+package application;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+			
+		int n, lucroAbaixo, lucroEntre, lucroAcima;
+		double compraTotal, vendaTotal;
+		
+		System.out.print("Serao digitados dados de quantos produtos? ");
+		n = sc.nextInt();
+		
+		String[] nomes = new String[n];
+		double [] precosCompra = new double[n];
+		double [] precosVenda = new double[n];
+		
+		for (int i = 0; i < n; i++) {
+			System.out.println("Produto " + (i + 1) + ":");
+			System.out.print("Nome: ");
+			sc.nextLine();
+			nomes[i] = sc.nextLine();
+			System.out.print("Preco de compra: ");
+			precosCompra[i] = sc.nextDouble();
+			System.out.print("Preco de venda: ");
+			precosVenda[i] = sc.nextDouble();
+		}
+		
+		lucroAbaixo = 0;
+		lucroEntre = 0;
+		lucroAcima = 0;
+		compraTotal = 0;
+		vendaTotal = 0;
+		for (int i = 0; i < n; i++) {
+			double lucro = (precosVenda[i] - precosCompra[i]) / precosCompra[i];
+			if (lucro < 0.1) {
+				lucroAbaixo++;
+			} else if (lucro < 0.2) {
+				lucroEntre++;
+			} else {
+				lucroAcima++;
+			}
+			
+			compraTotal += precosCompra[i];
+			vendaTotal += precosVenda[i];
+		}		
+				
+		System.out.println();
+		System.out.println("RELATORIO:");
+		System.out.printf("Lucro abaixo de 10%%: %d%n", lucroAbaixo);
+		System.out.printf("Lucro entre 10%% e 20%%: %d%n", lucroEntre);
+		System.out.printf("Lucro acima de 20%%: %d%n", lucroAcima);
+		System.out.printf("Valor total de compra: %.2f%n", compraTotal);
+		System.out.printf("Valor total de venda: %.2f%n", vendaTotal);
+		System.out.printf("Lucro total: %.2f%n", vendaTotal - compraTotal);
+		
+		sc.close();
+	}
+
+}

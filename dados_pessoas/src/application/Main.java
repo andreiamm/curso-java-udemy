@@ -1,0 +1,59 @@
+package application;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+			int n, qtdeMulheres;
+			double menorAltura, maiorAltura, somaAlturaMulheres;
+			
+			System.out.print("Quantas pessoas serao digitadas? ");
+			n = sc.nextInt();
+			
+			double[] alturas = new double[n];
+			char[] generos = new char[n];
+			
+			for (int i = 0; i < n; i++) {
+				System.out.print("Altura da " + (i + 1) + "a pessoa: ");
+				alturas[i] = sc.nextDouble();
+				System.out.print("Genero da " + (i + 1) + "a pessoa: ");
+				generos[i] = sc.next().charAt(0);
+			}
+			
+			menorAltura = maiorAltura = alturas[0];
+			qtdeMulheres = 0;
+			somaAlturaMulheres = 0;
+			for (int i = 0; i < n; i++) {
+				if (alturas[i] < menorAltura) {
+					menorAltura = alturas[i];
+				}
+				
+				if (alturas[i] > maiorAltura) {
+					maiorAltura = alturas[i];
+				}
+				
+				if (generos[i] == 'F' || generos[i] == 'f') {
+					qtdeMulheres++;
+					somaAlturaMulheres += alturas[i];
+				}
+			}
+			
+			System.out.printf("Menor altura: %.2f%n", menorAltura);
+			System.out.printf("Maior altura: %.2f%n", maiorAltura);
+			
+			if (qtdeMulheres == 0) {
+				System.out.println("Nenhuma mulher cadastrada");
+			} else {
+				System.out.printf("Media das alturas das mulheres = %.2f%n", somaAlturaMulheres / qtdeMulheres);
+			}
+			
+			System.out.printf("Numero de homens: %d%n", n - qtdeMulheres);
+			
+		sc.close();
+	}
+}
